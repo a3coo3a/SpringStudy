@@ -1,20 +1,18 @@
-package ex06.autowired;
+package ex07.quiz;
 
 import org.springframework.context.support.GenericXmlApplicationContext;
 
 public class MainClass {
 
 	public static void main(String[] args) {
-		
 		GenericXmlApplicationContext ctx = new GenericXmlApplicationContext("autowired-context.xml");
 		
-		/*
-		 * Printer pt1 = ctx.getBean(Printer.class);
-		 * System.out.println(pt1.getDocument().data);
-		 */
+		Computer com = ctx.getBean(Computer.class);
 		
-		Printer2 pt2 = ctx.getBean(Printer2.class);
-		System.out.println(pt2.getDocument().data);
+		com.computerInfo();
+		com.getKeyboard().info();
+		com.getMonitor().info();
+		com.getMouse().info();
 	}
 
 }
