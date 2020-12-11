@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.simple.command.ScoreVO;
 import com.simple.service.ScoreService;
@@ -55,5 +56,12 @@ public class ScoreController {
 		return "service/scoreList";
 	}
 	
+	// 점수삭제 요청
+	// @RequestParam("num") int index 대신 ScoreVO vo 사용해도 됨.
+	@RequestMapping("/scoreDelete")
+	public String scoreDelete(@RequestParam("num") int num) {
+		service.scoreDelete(num);
+		return "redirect:/service/scoreList";
+	}
 	
 }

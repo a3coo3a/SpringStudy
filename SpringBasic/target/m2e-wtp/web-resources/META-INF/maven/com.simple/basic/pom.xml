@@ -118,12 +118,41 @@
 		</dependency>
 	
 		<!-- Test -->
+		<!-- 4.7버전이 낮아 스프링과 호환이 되지 않는 단점이 있어 4.12버전으로 변경 -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.7</version>
+			<version>4.12</version>
 			<scope>test</scope>
-		</dependency>       
+		</dependency>  
+		
+		<!-- 필요한 라이브러리 하나씩 추가 -->
+		<!-- 오라클 커넥터 18c버전 -->
+		<dependency>
+		    <groupId>com.oracle.database.jdbc</groupId>
+		    <artifactId>ojdbc8</artifactId>
+		    <version>19.3.0.0</version>
+		</dependency>
+		<!-- 마이바티스, 스프링에서 제공하는 템플릿 JDBC를 사용하는데 반ㄷ시 필요할 라이브러리 -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-jdbc</artifactId>
+		    <version>${org.springframework-version}</version>
+		</dependency>
+		<!-- 데이터 베이스 연결작업을 하는데 필요한 커넥션풀(히카리풀) 라이브러리 -->
+		<dependency>
+		    <groupId>com.zaxxer</groupId>
+		    <artifactId>HikariCP</artifactId>
+		    <version>2.7.8</version>
+		</dependency>
+		<!-- 스프링 테스트환경을 제공(Junit단위테스트와 접목시켜서 사용) -->
+		<dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-test</artifactId>
+		    <version>${org.springframework-version}</version>
+		    <scope>test</scope>
+		</dependency>
+		     
 		<dependency>
 			<groupId>javax.annotation</groupId>
 			<artifactId>javax.annotation-api</artifactId>

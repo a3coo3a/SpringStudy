@@ -16,8 +16,11 @@
 		kor : ${list.kor }<br/>
 		eng : ${list.eng }<br/>
 		math : ${list.math }<br/>
+		<button type="button" onclick="location.href = 'scoreDelete?num=${list.num }'" >점수 삭제</button>
 		<hr/>
 	</c:forEach>
+	
+	<a href="scoreRegist">점수추가 등록</a>
 	
 	
 </body>
