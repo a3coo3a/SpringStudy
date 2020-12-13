@@ -7,8 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h2>res_ex04 화면</h2>
-넘어온값 : ${num }<br/>
-넘어온값 : ${name }<br/>
+	<h2>res_ex04 화면</h2>
+	
+	넘어온값 : ${num }<br/>
+	넘어온값 : ${name }<br/>
 </body>
 </html>

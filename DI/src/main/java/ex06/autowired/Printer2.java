@@ -8,7 +8,7 @@ public class Printer2 {
 	 * @Resource는 이름 -> 타입순으로 찾는다
 	 * - 세터, 멤버변수에만 적용이 가능합니다.
 	 * */
-	@Resource
+	@Resource(name = "doc2")
 	private Document document;
 	
 	//생성자

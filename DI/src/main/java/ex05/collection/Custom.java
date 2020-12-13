@@ -33,7 +33,5 @@ public class Custom {
 	public void setMaps(Map<String, Object> maps) {
 		this.maps = maps;
 	}
-	
 
-	
 }
