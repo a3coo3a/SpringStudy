@@ -29,7 +29,7 @@
 	<context:component-scan base-package="com.simple.controller" />
 	<!-- 아래 패키지 안에 있는 것도 잘 읽어서 bean으로 자동 생성해줘 -->
 	<context:component-scan base-package="com.simple.service" />
-	<context:component-scan base-package="com.simple.dao" />
+	<!-- <context:component-scan base-package="com.simple.dao" /> -->
 	
 	<!-- 서비스 클래스를 bean으로 생성 -->
 	<!-- <beans:bean id="service" class="com.simple.service.ScoreServiceImpl"/> --> 	

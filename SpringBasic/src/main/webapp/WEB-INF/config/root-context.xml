@@ -2,8 +2,17 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
 	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- 외부설정 파일을 읽어서 사용할 수 있도록 해주는 클래스 -->
+	<!-- 외부파일은 classpath:/ 로 작성이 필수 -->
+	<!-- classpath:/ 작성시, src/main/resources폴더아래에 있는 파일을 참조할 수 있다. -->
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location" value="classpath:/db-config/Hikari.properties"/>
+	</bean>
 	
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
@@ -11,10 +20,10 @@
 	<!-- 1. 하단에 namespace에서 jdbc만 추가 -->
 		 
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
-		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521/XEPDB1" /> <!-- 엔드포인트 :xe (11g) /XEPDB1 (18c) -->
-		<property name="username" value="SPRING"/>
-		<property name="password" value="SPRING"/>
+		<property name="driverClassName" value="${ds.driverClassName}" />
+		<property name="jdbcUrl" value="${ds.jdbcUrl}" /> <!-- 엔드포인트 :xe (11g) /XEPDB1 (18c) -->
+		<property name="username" value="${ds.username}"/>
+		<property name="password" value="${ds.password}"/>
 	</bean>
 	
 	<!-- 히카리 풀(위에 설정파일을 주입) -->
@@ -26,4 +35,22 @@
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
 		<property name="dataSource" ref="ds"/>
 	</bean>
+	
+	<!-- 마이바티스 핵심 객체 생성 -->
+	<!-- setter주입으로 히카리풀을 주입 -->
+	<!-- 이거하면 JDBCTemplate는 필요없지요 -->
+	<!-- mapperLocations: 구현 xml 위치를 한번에알려주는 역할 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="ds" />
+		<!-- 마이바티스의 구현체 mapper를 묶어서 관리하기 위한 경로 설정 -->
+		<property name="mapperLocations" value="classpath:/sqlmap/*.xml"></property>
+		<!-- 마이바티스의 부가적인 설정파일 위치 -->
+		<property name="configLocation" value="classpath:/mybatis-config/mybatis-config.xml"></property>
+	</bean>
+	
+	<!-- 매퍼 인터페이스의 경로를 지정 -->
+	<!-- 해당 패키지를 읽어 빈을 생성해라 -->
+	<mybatis-spring:scan base-package="com.simple.test.mapper"/>
+	<mybatis-spring:scan base-package="com.simple.mapper"/>
+
 </beans>

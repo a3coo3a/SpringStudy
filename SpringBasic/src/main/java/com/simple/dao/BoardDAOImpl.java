@@ -20,7 +20,7 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public void boardRegist(BoardVO vo) {
-		String sql = "insert into screo values(board_seq.nextval, ?,?,?)";
+		String sql = "insert into board values(board_seq.nextval, ?,?,?)";
 		jdbcTemplate.update(sql, new Object[] {vo.getName(), vo.getTitle(), vo.getContent()});
 	}
 

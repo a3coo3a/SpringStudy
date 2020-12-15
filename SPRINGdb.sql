@@ -24,3 +24,8 @@ CREATE TABLE BOARD(
 DESC BOARD;
 CREATE SEQUENCE BOARD_SEQ START WITH 1 INCREMENT BY 1 NOCACHE;
 select * from board;
+
+select sysdate from dual;
+
+select * from board where name like '%홍길동%' and title = '테스트6';
+
