@@ -8,3 +8,16 @@ CREATE TABLE FREEBOARD (
     MODIDATE DATE DEFAULT SYSDATE
 );
 CREATE SEQUENCE FB_SEQ START WITH 1 INCREMENT BY 1 NOCACHE;
+
+
+-- board table 선생님과 만들기
+create table freeboard(
+    bno number(10),
+    title VARCHAR2(200) not null,
+    writer VARCHAR2(50) not null,
+    content VARCHAR2(2000),
+    regdate date DEFAULT sysdate,
+    updatedate date DEFAULT sysdate
+);
+alter table freeboard add CONSTRAINT freeboard_pk primary key (bno);
+create SEQUENCE freeboard_seq INCREMENT by 1 START WITH 1 NOCACHE;

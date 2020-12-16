@@ -1,5 +1,7 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <section>
         <div class="container">
             <div class="row">
@@ -11,28 +13,28 @@
                         <form>
                             <div>
                                 <label>DATE</label>
-                                <p>2019-12-12</p>
+                                <p><fmt:formatDate value="${voOne.regdate}" pattern="yyyy-MM-dd"/></p>
                             </div>   
                             <div class="form-group">
                                 <label>번호</label>
-                                <input class="form-control" name='##' readonly>
+                                <input class="form-control" name='##' value="${voOne.bno }" readonly>
                             </div>
                             <div class="form-group">
                                 <label>작성자</label>
-                                <input class="form-control" name='##' readonly>
+                                <input class="form-control" name='##' value="${voOne.writer }" readonly>
                             </div>    
                             <div class="form-group">
                                 <label>제목</label>
-                                <input class="form-control" name='##' readonly>
+                                <input class="form-control" name='##' value="${voOne.title }" readonly>
                             </div>
 
                             <div class="form-group">
                                 <label>내용</label>
-                                <textarea class="form-control" rows="10" name='##' readonly></textarea>
+                                <textarea class="form-control" rows="10" name='##' readonly>${voOne.content }</textarea>
                             </div>
 
-                            <button type="button" class="btn btn-primary">변경</button>
-                            <button type="button" class="btn btn-dark">목록</button>
+                            <button type="button" class="btn btn-primary" onclick="location.href='freeModify?bno=${voOne.bno}'">변경</button>
+                            <button type="button" class="btn btn-dark" onclick="location.href='freeList'">목록</button>
                     </form>
                 </div>
             </div>

@@ -38,5 +38,7 @@
 	
 	<!-- 매퍼 인터페이스의 경로를 지정 -->
 	<!-- 해당 패키지를 읽어 빈을 생성해라 -->
-	<mybatis-spring:scan base-package="com.team404.mapper"/>
+	<!-- *, **의 차이는 파일과 폴더라고 보시면 됩니다.첫번째는 모든파일, 두번째는 모든 하위폴더  -->
+	<mybatis-spring:scan base-package="com.team404.*.mapper"/>
+	<mybatis-spring:scan base-package="com.team404.*.*.mapper"/>
 </beans>

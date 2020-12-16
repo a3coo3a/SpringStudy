@@ -19,8 +19,8 @@
 
                         <div class="collapse navbar-collapse" id="myNavbar">
                             <ul class="nav navbar-nav">
-                                <li class="active"><a href="#">Main</a></li>
-                                <li><a href="#">자유게시판</a></li>
+                                <li class="active"><a href="<%=request.getContextPath()%>">Main</a></li>
+                                <li><a href="${pageContext.request.contextPath}/freeBoard/freeList">자유게시판</a></li>
                                 <!-- 
 				<li><a href="#">강의</a></li>
                                 <li><a href="#">Form</a></li>
@@ -29,7 +29,7 @@
 
                             </ul>
                             <ul class="nav navbar-nav navbar-right">
-                                <li class="dropdown">
+                                <li class="dropdown">	
                                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">로그인
                                         <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
