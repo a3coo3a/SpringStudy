@@ -8,8 +8,46 @@
   		insert into FREEBOARD(bno, title, writer, content) values(FREEBOARD_SEQ.nextval,#{title},#{writer},#{content})
   	</insert>
   	
-  	<select id="getList" resultType="FreeBoardVO">
+  	<!-- <select id="getList" resultType="FreeBoardVO">
   		select * from FREEBOARD order by bno desc
+  	</select> -->
+  	
+  	<!-- 동적쿼리 구문의 조건에는 map의 키값이나 vo의 setter값의 이름이 들어감 -->
+  	<select id="getList" resultType="FreeBoardVO">
+  		<![CDATA[
+		select *
+		from(select rownum as rn,
+		            a.*
+		     from (select * 
+		           from FREEBOARD
+		]]>
+				   <if test="searchType == 'title'">where title like '%'||#{searchName}||'%'</if>
+				   <if test="searchType == 'writer'">where writer like '%'||#{searchName}||'%'</if>
+				   <if test="searchType == 'content'">where content like '%'||#{searchName}||'%'</if>
+				   <if test="searchType == 'titcont'">where title like '%'||#{searchName}||'%' or content like '%'||#{searchName}||'%'</if>
+			       <if test="searchType == null or searchType == ''">where 1=1</if>
+			       
+			       <!-- <choose>
+			       if~else
+			       	<when test="searchType == 'title'">where title like '%'||#{searchName}||'%'</when>
+			       	<when test="searchType == 'writer'">where writer like '%'||#{searchName}||'%'</when>
+			       	<when test="searchType == 'content'">where content like '%'||#{searchName}||'%'</when>
+			       	<when test="searchType == 'titcont'">where title like '%'||#{searchName}||'%' or content like '%'||#{searchName}||'%'</when>
+			       	<otherwise>where 1=1</otherwise>
+			       </choose> -->
+		<![CDATA[
+		           order by bno desc) a)
+		where rn > (#{pageNum}-1) * #{amount} and rn <= #{pageNum} * #{amount}
+		]]>
+  	</select>
+  	
+  	<select id="getTotal" resultType="int">
+  		select count(*) from FREEBOARD
+  		<if test="searchType == 'title'">where title like '%'||#{searchName}||'%'</if>
+		<if test="searchType == 'writer'">where writer like '%'||#{searchName}||'%'</if>
+		<if test="searchType == 'content'">where content like '%'||#{searchName}||'%'</if>
+		<if test="searchType == 'titcont'">where title like '%'||#{searchName}||'%' or content like '%'||#{searchName}||'%'</if>
+		<if test="searchType == null or searchType == ''">where 1=1</if>
   	</select>
   	
   	<select id="getContent" resultType="FreeBoardVO">

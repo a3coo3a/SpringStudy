@@ -28,4 +28,26 @@ select * from board;
 select sysdate from dual;
 
 select * from board where name like '%홍길동%' and title = '테스트6';
+drop table freeboard;
 
+create table freeboard(
+    bno number(10),
+    title VARCHAR2(200) not null,
+    writer VARCHAR2(50) not null,
+    content VARCHAR2(2000),
+    regdate date DEFAULT sysdate,
+    updatedate date DEFAULT sysdate
+);
+alter table freeboard add CONSTRAINT freeboard_pk primary key (bno);
+create SEQUENCE freeboard_seq INCREMENT by 1 START WITH 1 NOCACHE;
+
+select * from freeboard;
+
+select *
+from(
+select rownum as rn,
+       a.*
+from (select * 
+      from FREEBOARD
+      order by bno desc) a)
+where rn >40;

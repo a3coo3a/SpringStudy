@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.team404.command.FreeBoardVO;
+import com.team404.common.util.Criteria;
+import com.team404.common.util.PageVO;
 import com.team404.freeboard.service.FreeBoardService;
 
 @Controller
@@ -24,11 +26,30 @@ public class FreeBoardController {
 	
 	// 글목록
 	@RequestMapping("/freeList")
-	public String freeList(Model model) {
+	public String freeList(Model model, Criteria cri) {
+		// 1. 기본방식
 		// 화면으로 넘어갈때 글정보를 가지고 갈 수 있도록 처리
-		ArrayList<FreeBoardVO> list = new ArrayList<>();
-		list = freeBoardService.getList();
-		model.addAttribute("list", list);
+//		ArrayList<FreeBoardVO> list = new ArrayList<>();
+//		list = freeBoardService.getList();
+//		model.addAttribute("list", list);
+		
+		// 2. 페이지 방식
+		/*
+		 * int total = freeBoardService.getTotal(); 
+		 * PageVO pageVO = new PageVO(cri, total);
+		 * 
+		 * ArrayList<FreeBoardVO> list = freeBoardService.getList(cri);
+		 * model.addAttribute("list", list); model.addAttribute("pageVO", pageVO );
+		 * return "freeBoard/freeList";
+		 */
+		
+		// 3. 검색과 페이지
+		//System.out.println(cri.toString());
+		int total = freeBoardService.getTotal(cri);
+		PageVO pageVO = new PageVO(cri, total);
+		ArrayList<FreeBoardVO> list = freeBoardService.getList(cri);
+		model.addAttribute("list", list); model.addAttribute("pageVO", pageVO );
+		//System.out.println(list.toString());
 		return "freeBoard/freeList";
 	}
 	
