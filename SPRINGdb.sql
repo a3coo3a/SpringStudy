@@ -44,10 +44,25 @@ create SEQUENCE freeboard_seq INCREMENT by 1 START WITH 1 NOCACHE;
 select * from freeboard;
 
 select *
-from(
-select rownum as rn,
-       a.*
-from (select * 
-      from FREEBOARD
-      order by bno desc) a)
-where rn >40;
+from(select rownum as rn,
+            a.*
+     from (select * 
+           from FREEBOARD
+           order by bno desc) a)
+where rn > 40 and rn <= 50;.
+
+create table FREEREPLY(
+    bno number(10),   -- 글번호 FK
+    rno number(10) primary key, -- 댓글번호 PK
+    reply varchar2(1000),  -- 내용
+    replyId varchar2(50), -- 글 작성자 (writer)
+    replyPw varchar2(50), -- 비밀번호
+    replydate date default sysdate,  -- 등록일
+    updatedate date default sysdate  -- 수정일
+);
+
+create sequence freereply_seq start with 1 increment by 1 nocache;
+
+select * from freereply;
+
+select * from FREEREPLY where bno = 299;
