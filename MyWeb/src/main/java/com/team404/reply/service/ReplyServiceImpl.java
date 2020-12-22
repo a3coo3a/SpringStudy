@@ -24,4 +24,23 @@ public class ReplyServiceImpl implements ReplyService {
 		return replymapper.getList(bno);
 	}
 
+	@Override
+	public int update(ReplyVO vo) {
+		// 1. sql문을 두번에 실행 (select검증, 업데이트)
+		// 2. sql문을 한번에 실행
+		
+		return replymapper.update(vo);
+	}
+
+	@Override
+	public int pwCheck(ReplyVO vo) {
+		return replymapper.pwCheck(vo);
+	}
+	
+	@Override
+	public int delete(ReplyVO vo) {
+		return replymapper.delete(vo);
+	}
+
+
 }

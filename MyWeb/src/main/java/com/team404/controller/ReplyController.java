@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.team404.command.ReplyVO;
@@ -35,6 +36,28 @@ public class ReplyController {
 	@GetMapping("/getList/{bno}")
 	public ArrayList<ReplyVO> getList(@PathVariable("bno") int bno){
 		ArrayList<ReplyVO> list = replyService.getList(bno);
+		//System.out.println(list.toString());
 		return list;
+	}
+	
+	//수정요청
+	@PostMapping("/update")
+	public int update(@RequestBody ReplyVO vo) {
+		int result = replyService.update(vo);
+		System.out.println("성공여부? : "+result);
+		//System.out.println(vo.toString());
+		return result;
+	}
+	
+	// 삭제요청
+	@PostMapping("/delete")
+	public int delete(@RequestBody ReplyVO vo) {
+		//System.out.println(vo.toString());
+		int result = replyService.pwCheck(vo);
+		if(result == 1) { //비밀번호가 맞은 경우
+			return replyService.delete(vo);
+		}else { // 비밀번호가 틀린경우
+			return -1;
+		}
 	}
 }

@@ -11,4 +11,14 @@
   	<select id="getList" resultType="ReplyVO">
   		select * from FREEREPLY where bno = #{bno} order by rno desc
   	</select>
+  	<update id="update">
+  		update FREEREPLY set reply = #{reply}, updatedate = sysdate
+  		where rno = #{rno} and replyPw = #{replyPw}
+  	</update>
+  	<select id="pwCheck" resultType="int">
+  		select count(*) from FREEREPLY where rno = #{rno} and replyPw = #{replyPw}
+  	</select>
+  	<delete id="delete">
+  		delete from FREEREPLY where rno = #{rno}
+  	</delete>
   </mapper>
