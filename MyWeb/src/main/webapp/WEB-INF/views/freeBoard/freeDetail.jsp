@@ -169,9 +169,12 @@
 				});
 			}
 			
+			// 페이지 넘버 선언
+			var pageNum = 1;
+			
 			// 목록 요청
-			getList();  // 상세화면 진입시에 리스트 목록을 가져옵니다.
-			function getList(){
+			getList(1);  // 상세화면 진입시에 리스트 목록을 가져옵니다.
+			function getList(pageNum){
 				// select 구문에서 필요한 값은 ? bno
 				var bno = "${voOne.bno}";
 				
@@ -179,7 +182,7 @@
 				// $.ajax() : get, post, put, delete 공용적으로 처리하는 제이쿼리 함수
 				// $.getJSON(요청주소, 콜백함수) : 단순히 get방식의 데이터만 얻어올 때 사용하는 기능.
 				$.getJSON(   // json형식의 get방식을 가져올때 사용하는 함수
-					"../reply/getList/"+bno, function(data){
+					"../reply/getList/"+bno+"/"+pageNum, function(data){
 					if(data.length <= 0){  // 댓글이 없는 경우 함수 종료
 						return;  // 함수종료
 					}

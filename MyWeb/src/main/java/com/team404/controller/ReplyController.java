@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.team404.command.ReplyVO;
+import com.team404.common.util.Criteria;
 import com.team404.reply.service.ReplyService;
 
 @RestController
@@ -33,9 +34,21 @@ public class ReplyController {
 	}
 	
 	// 목록요청
-	@GetMapping("/getList/{bno}")
-	public ArrayList<ReplyVO> getList(@PathVariable("bno") int bno){
-		ArrayList<ReplyVO> list = replyService.getList(bno);
+	@GetMapping("/getList/{bno}/{pageNum}")
+	public ArrayList<ReplyVO> getList(@PathVariable("bno") int bno, @PathVariable("pageNum") int pageNum){
+		// 1. 화면에서 더보기 버튼을 생성하고, 처음 실행될때 pageNum = 1과 해당 bno 번호를 보내줌.
+		// 2. getList(bno, cri)를 받습니다.
+		// 3. 마이바티스에 매개변수가 2개 전달되는 경우는 @Param 어노테이션을 사용해야함.
+		// 4. 페이지 쿼리 구문을 실행
+		// 5. 이 게시글에 대한 토탈 게시글 수
+		
+		Criteria cri = new Criteria(pageNum, 20); // 20개 데이터
+		ArrayList<ReplyVO> list = replyService.getList(bno, cri);
+		
+		// 게시글에 대한 total
+		
+		// 맵에 키, value로 저장해서 반환
+		
 		//System.out.println(list.toString());
 		return list;
 	}

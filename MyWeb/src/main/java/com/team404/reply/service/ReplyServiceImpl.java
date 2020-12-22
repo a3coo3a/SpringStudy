@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.team404.command.ReplyVO;
+import com.team404.common.util.Criteria;
 import com.team404.reply.mapper.ReplyMapper;
 
 @Service("replyService")
@@ -19,11 +20,16 @@ public class ReplyServiceImpl implements ReplyService {
 		return replymapper.replyRegist(vo);
 	}
 
-	@Override
-	public ArrayList<ReplyVO> getList(int bno) {
-		return replymapper.getList(bno);
-	}
+	/*
+	 * @Override public ArrayList<ReplyVO> getList(int bno) { return
+	 * replymapper.getList(bno); }
+	 */
 
+	@Override
+	public ArrayList<ReplyVO> getList(int bno, Criteria cri) {
+		return replymapper.getList(bno, cri);
+	}
+	
 	@Override
 	public int update(ReplyVO vo) {
 		// 1. sql문을 두번에 실행 (select검증, 업데이트)
@@ -41,6 +47,7 @@ public class ReplyServiceImpl implements ReplyService {
 	public int delete(ReplyVO vo) {
 		return replymapper.delete(vo);
 	}
+
 
 
 }

@@ -66,3 +66,30 @@ create sequence freereply_seq start with 1 increment by 1 nocache;
 select * from freereply;
 
 select * from FREEREPLY where bno = 299;
+
+select count(*) from FREEREPLY where rno = 1 and replyPw = 'aaa';
+commit;
+
+declare
+    var1 number := 1;
+begin
+    while var1 <= 100
+    loop 
+        insert into freereply values(299, freereply_seq.nextval, 'test','admin','1234',sysdate,sysdate);
+        var1 := var1 + 1;
+    end loop;
+    commit;
+end;
+
+select *
+from(
+    select rownum as rn, 
+           a.*
+    from(
+        select *
+        from freereply
+        where bno = 299
+        order by rno desc)a
+) where rn > 20 and rn <= 40;
+
+
