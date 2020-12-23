@@ -1,6 +1,7 @@
 package com.team404.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -35,7 +36,7 @@ public class ReplyController {
 	
 	// 목록요청
 	@GetMapping("/getList/{bno}/{pageNum}")
-	public ArrayList<ReplyVO> getList(@PathVariable("bno") int bno, @PathVariable("pageNum") int pageNum){
+	public HashMap<String, Object> getList(@PathVariable("bno") int bno, @PathVariable("pageNum") int pageNum){
 		// 1. 화면에서 더보기 버튼을 생성하고, 처음 실행될때 pageNum = 1과 해당 bno 번호를 보내줌.
 		// 2. getList(bno, cri)를 받습니다.
 		// 3. 마이바티스에 매개변수가 2개 전달되는 경우는 @Param 어노테이션을 사용해야함.
@@ -46,11 +47,14 @@ public class ReplyController {
 		ArrayList<ReplyVO> list = replyService.getList(bno, cri);
 		
 		// 게시글에 대한 total
-		
+		int total = replyService.getTotal(bno);
 		// 맵에 키, value로 저장해서 반환
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("list",list);
+		map.put("total",total);
 		
 		//System.out.println(list.toString());
-		return list;
+		return map;
 	}
 	
 	//수정요청

@@ -23,6 +23,9 @@
 		) where rn > (#{cri.pageNum}-1)*#{cri.amount} and rn <= #{cri.pageNum}*#{cri.amount}
 		]]>
   	</select>
+  	<select id="getTotal" resultType="int">
+  		select count(*) from FREEREPLY where bno = #{bno}
+  	</select>
   	<update id="update">
   		update FREEREPLY set reply = #{reply}, updatedate = sysdate
   		where rno = #{rno} and replyPw = #{replyPw}

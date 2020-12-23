@@ -93,3 +93,19 @@ from(
 ) where rn > 20 and rn <= 40;
 
 
+create table users(
+    userId VARCHAR2(50) not null,
+    userPw varchar2(50) not null,
+    userName varchar2(50) not null,
+    userPhone1 VARCHAR2(50),
+    userPhone2 VARCHAR2(50),
+    userEmail1 VARCHAR2(50),
+    userEmail2 VARCHAR2(50),
+    addrBasic VARCHAR2(300),
+    addrDetail VARCHAR2(300),
+    addrZipNum VARCHAR2(50),
+    regdate date default sysdate
+);
+
+alter table users add constraint userid_pk primary key (userId);
+

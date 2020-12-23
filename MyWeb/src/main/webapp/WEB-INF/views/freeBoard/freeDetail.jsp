@@ -85,6 +85,9 @@
                         </div> -->
                         
                         </div>
+                        
+                        <button type="button" class="form-control" id="moreList">▼게시글(더보기)</button>
+                        
                     </div>
                 </div>
             </div>
@@ -157,7 +160,7 @@
 							$("#replyId").val("");
 							$("#replyPw").val("");
 							alert("댓글등록에 성공하였습니다");
-							getList();
+							getList(1, true);
 						}else{
 							alert("등록에 실패하였습니다. 잠시후에 시도하세요");
 						}
@@ -169,12 +172,18 @@
 				});
 			}
 			
+			//--------------------------------------------------------------------
+			// 더보기 버튼 핸들러
+			$("#moreList").click(function(){
+				getList(++pageNum);
+			})
 			// 페이지 넘버 선언
 			var pageNum = 1;
+			var strAdd = ""; // 화면에 그려넣을 태그를 문자열의 형태로 추가
 			
 			// 목록 요청
 			getList(1);  // 상세화면 진입시에 리스트 목록을 가져옵니다.
-			function getList(pageNum){
+			function getList(page, reset){  // (page번호, strAdd의 초기화여부)
 				// select 구문에서 필요한 값은 ? bno
 				var bno = "${voOne.bno}";
 				
@@ -182,12 +191,25 @@
 				// $.ajax() : get, post, put, delete 공용적으로 처리하는 제이쿼리 함수
 				// $.getJSON(요청주소, 콜백함수) : 단순히 get방식의 데이터만 얻어올 때 사용하는 기능.
 				$.getJSON(   // json형식의 get방식을 가져올때 사용하는 함수
-					"../reply/getList/"+bno+"/"+pageNum, function(data){
+					"../reply/getList/"+bno+"/"+page, function(dataList){
+					
+						console.log(dataList);
+						
+					var total = dataList.total;
+					var data = dataList.list;
+					
+					if(reset == true){
+						pageNum = 1;
+						strAdd = "";
+					}
+					if(pageNum * 20 >= total){ // 페이지번호*데이터수가 전체글보다 크면 더보기 비활성화
+						$("#moreList").css("display","none");
+					}
+					
 					if(data.length <= 0){  // 댓글이 없는 경우 함수 종료
 						return;  // 함수종료
 					}
 					
-					var strAdd = ""; // 화면에 그려넣을 태그를 문자열의 형태로 추가
 					for(var i = 0; i < data.length; i++){
 						strAdd += "<div class='reply-wrap'>";
 						strAdd += "<div class='reply-image'>";
@@ -272,8 +294,8 @@
 							alert("수정 성공!");
 							$("#modalReply").val(""); // 수정창 비우기
 							$("#modalPw").val(""); // 수정창 비우기
-							$("replyModal").modal("hide");
-							getList(); // 목록호출
+							$("#replyModal").modal("hide");
+							getList(1, true); // 목록호출
 						}else{
 							alert("비밀번호를 확인하세요");
 							$("#modalPw").val("");
@@ -313,7 +335,7 @@
 							alert("삭제되었습니다");
 							$("#modalPw").val("");
 							$("#replyModal").modal("hide");
-							getList();
+							getList(1, true);
 						}else if(data === -1){
 							alert("비밀번호를 확인하세요");
 							$("#modalPw").val("");
@@ -366,7 +388,7 @@
 					var year = date.getFullYear();  // 년
 					var month = date.getMonth() + 1;  // 월
 					var day = date.getDate();  // 일
-					var hour = date.getHour();  // 시
+					var hour = date.getHours();  // 시
 					var minute = date.getMinutes(); // 분
 					var second = date.getSeconds();  // 초
 					time = year + "년" + month + "월" + day + "일 " + (hour < 10 ? "0"+hour : hour) +":"+(minute<10?"0"+minute:minute)+":"+ (second<10?"0"+second:second);
