@@ -95,6 +95,7 @@ public class FreeBoardController {
 	
 	@RequestMapping(value = "/freeUpdate", method = RequestMethod.POST)
 	public String freeUpdate(FreeBoardVO vo, RedirectAttributes RA) {
+		System.out.println(vo.toString());
 		int result = freeBoardService.update(vo);
 		if(result == 1) {
 			RA.addFlashAttribute("msg", "게시글이 수정되었습니다.");

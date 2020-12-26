@@ -109,3 +109,6 @@ create table users(
 
 alter table users add constraint userid_pk primary key (userId);
 
+select * from users;
+
+insert into users(userId, userPw, userName,userPhone1,userPhone2 ) values(); 
