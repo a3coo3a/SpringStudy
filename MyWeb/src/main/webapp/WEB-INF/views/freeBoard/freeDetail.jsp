@@ -18,23 +18,23 @@
                             </div>   
                             <div class="form-group">
                                 <label>번호</label>
-                                <input class="form-control" name='##' value="${voOne.bno }" readonly>
+                                <input class="form-control" name='bno' value="${voOne.bno }" readonly>
                             </div>
                             <div class="form-group">
                                 <label>작성자</label>
-                                <input class="form-control" name='##' value="${voOne.writer }" readonly>
+                                <input class="form-control" name='writer' value="${voOne.writer }" readonly>
                             </div>    
                             <div class="form-group">
                                 <label>제목</label>
-                                <input class="form-control" name='##' value="${voOne.title }" readonly>
+                                <input class="form-control" name='title' value="${voOne.title }" readonly>
                             </div>
 
                             <div class="form-group">
                                 <label>내용</label>
-                                <textarea class="form-control" rows="10" name='##' readonly>${voOne.content }</textarea>
+                                <textarea class="form-control" rows="10" name='content' readonly>${voOne.content }</textarea>
                             </div>
 
-                            <button type="button" class="btn btn-primary" onclick="location.href='freeModify?bno=${voOne.bno}'">변경</button>
+                            <button type="button" class="btn btn-primary" onclick="location.href='freeModify?bno=${voOne.bno}&writer=${voOne.writer }'">변경</button>
                             <button type="button" class="btn btn-dark" onclick="location.href='freeList'">목록</button>
                     </form>
                 </div>

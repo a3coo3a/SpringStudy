@@ -1,6 +1,7 @@
 package com.team404.command;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -23,4 +24,6 @@ public class UserVO {
 	private String addrZipNum;
 	private Timestamp regdate;
 	
+	// 마이페이지 1:N 맵핑
+	private ArrayList<FreeBoardVO> list;
 }

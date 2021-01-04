@@ -14,14 +14,17 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
-	<!-- 디스패처 서블릿이 첫번째 fromtcontroller로 등록 -->
+	<!-- 디스패처 서블릿이 첫번째 fromt controller로 등록 -->
 	<!-- Processes application requests -->
 	<servlet>
 		<servlet-name>appServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/springconfig/servlet-context.xml</param-value>
+			<param-value>
+				/WEB-INF/springconfig/servlet-context.xml
+				/WEB-INF/springconfig/interceptor-context.xml
+			</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>

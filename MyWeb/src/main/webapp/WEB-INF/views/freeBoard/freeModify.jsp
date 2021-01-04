@@ -21,7 +21,7 @@
                             </div>
                             <div class="form-group">
                                 <label>작성자</label>
-                                <input class="form-control" name='writer' value="${voOne.writer }">
+                                <input class="form-control" name='writer' value="${voOne.writer }" readonly>
                                 <span id="msgWriter"></span>
                             </div>    
                             <div class="form-group">

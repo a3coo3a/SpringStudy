@@ -52,3 +52,22 @@ create table users(
 );
 
 alter table users add constraint userid_pk primary key (userId);
+
+
+-- sns테이블
+-- 어디다 저장할지 업로드 패스
+-- 변경할 이름, 파일명 중복을 피하기 위해
+-- 실제이름 
+-- pk, 작성자, 내용, 이미지에 대한 정보(업로드된 경로, 변경된 파일이름, 실제파일 이름), 등록일
+create table SNSBOARD (
+    bno number(10) not null,
+    writer varchar2(50) not null,
+    content varchar2(2000),
+    uploadpath varchar2(200) not null,
+    fileloca varchar2(50) not null,
+    filename varchar2(50) not null,
+    filerealname varchar2(50) not null,
+    regdate date DEFAULT sysdate
+);
+alter table SNSBOARD add constraint snsboard_pk primary key (bno);
+create sequence snsboard_seq increment by 1 start with 1 nocache;

@@ -7,7 +7,8 @@
                     <div class="titlebox">
                        	 회원가입
                     </div>
-                    <form action="join" method="post" id="joinForm">
+                    <div><h3 align="center">${msg }</h3></div>
+                    <form action="joinForm" method="post" name="joinForm">
                         <div class="form-group"><!--사용자클래스선언-->
                             <label for="id">아이디</label>
                             <div class="input-group"><!--input2탭의 input-addon을 가져온다 -->
@@ -25,7 +26,7 @@
                         </div>
                         <div class="form-group">
                             <label for="password-confrim">비밀번호 확인</label>
-                            <input type="password" class="form-control" id="pwConfirm" name="pwConfirm" placeholder="비밀번호를 확인해주세요.">
+                            <input type="password" class="form-control" id="pwConfirm" placeholder="비밀번호를 확인해주세요.">
                              <span id="msgPw-c"></span><!--자바스크립트에서 추가-->
                         </div>
                         <div class="form-group">
@@ -78,7 +79,7 @@
 
                         <!--button탭에 들어가서 버튼종류를 확인한다-->
                         <div class="form-group">
-                            <button type="button" class="btn btn-lg btn-success btn-block" id="joinBtn">회원가입</button>
+                            <button type="button" class="btn btn-lg btn-success btn-block" onclick="joinCheck()">회원가입</button>
                         </div>
 
                         <div class="form-group">
@@ -92,7 +93,6 @@
    
    
    <script>
-   // id중복체크
 	 $("#checkIdBtn").click(function idCheck(){
 		if($("#userId").val() === '') {
 			alert("아이디 규칙을 확인하세요");
@@ -108,38 +108,17 @@
 			data : JSON.stringify({"userId":userId}),
 			contentType : "application/json; charset=utf-8",
 			success: function(data){
-				if(data === 0){   // 중복이 없는 경우
-					$("#userId").attr("readonly",true);  // readonly속성 변경
-					$("#msgId").html("사용가능한 아이디 입니다.");
-				}else{  // 중복인 경우
-					$("#msgId").html("중복된 아이디입니다.");
+				if(data === 0){   // 중복없음
+					$("#msgId").html("가입 가능한 아이디 입니다.");
+				}else{  // 중복있음.
+					$("#msgId").html("이미 존재하는 아이디 입니다.");
 				}
 			},
-			error: function(status, error){
-				alert("서버에러입니다. 관리자에게 문의하세요");
-			}
+			error: function(status, error){}
 		}); //ajax end
 		
 		
 	 });
-   
-   	// 폼 검증
-   		$("#joinBtn").click(function(){
-   			if( !$("#userId").attr("readonly") ){ // 아이디가 중복 체크된 경우 서브밋  readonly있으면 true
-   				alert("아이디 중복체크는 필수 입니다.");
-   				return;
-   			}else if($("#userPw").val() === '' || $("#userPw").val() !== $("pwConfirm").val()){
-   				alert("비밀번호규칙을 확인하세요");
-   				$("#userPw").focus();
-   				return;
-   			}else if($("#userName").val() === '' ){
-   				alert("이름은 필수입니다.");
-   				$("#userName").focus();
-   				return;
-   			}else{
-   				$("#joinForm").submit();   // 전송
-   			}
-   		});
 	</script>
    
    <script>
@@ -199,5 +178,37 @@
         
     </script>
     
-    
+    <script>
+    	var userId = $("#userId");
+    	var userPw = $("#userPw");
+    	var pwConfirm = $("#pwConfirm");
+    	    	
+    	function joinCheck(){
+    		
+    		var regexId = /^[A-Za-z0-9+]{4,12}$/; 
+    		var regexPw = /^[A-Za-z0-9+]{8,16}$/;
+    		
+    		if(userId.val() === "" || !regexId.test(userId.val())){
+    			alert("아이디를 확인하세요");
+    			userId.focus();
+    			return;
+    		} else if($("#msgId").html() !== "가입 가능한 아이디 입니다."){
+    			alert("아이디를 중복확인을 해주세요");
+    			$("#checkIdBtn").focus();
+    			return;
+    		} else if(userPw.val() === "" || !regexPw.test(userPw.val())){
+    			alert("비밀번호를 확인하세요");
+    			userPw.focus();
+    			return;
+    		}else if(pwConfirm.val() === "" || pwConfirm.val() !== userPw.val()){
+    			alert("비밀번호확인을 입력하세요");
+    			pwConfirm.focus();
+    			return;
+    		}else{
+    			document.joinForm.submit(); 	
+    			return;
+    		} 
+    	}
+    </script>
+
    

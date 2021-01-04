@@ -1,5 +1,7 @@
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	<section>
         <!--Toggleable / Dynamic Tabs긁어옴-->
         <div class="container">
@@ -23,11 +25,11 @@
                                 <tbody class="m-control">
                                     <tr>
                                         <td class="m-title">*ID</td>
-                                        <td><input class="form-control input-sm" value="${user.userId }"></td>
+                                        <td><input class="form-control input-sm" value="${userInfo.userId }" readonly></td>
                                     </tr>
                                     <tr>
                                         <td class="m-title">*이름</td>
-                                        <td><input class="form-control input-sm" value="${user.userName }"></td>
+                                        <td><input class="form-control input-sm" value="${userInfo.userName }"></td>
                                     </tr>
                                     <tr>
                                         <td class="m-title">*비밀번호</td>
@@ -40,11 +42,11 @@
                                     <tr>
                                         <td class="m-title">*E-mail</td>
                                         <td>
-                                            <input class="form-control input-sm" value="${user.userEmail1 }">@
+                                            <input class="form-control input-sm" value="${userInfo.userEmail1 }">@
                                             <select class="form-control input-sm sel">
-                                                <option ${user.userEmail2 == 'naver.com'? 'selected': ''}>naver.com</option>
-                                                <option ${user.userEmail2 == 'gmail.com'? 'selected': ''}>gmail.com</option>
-                                                <option ${user.userEmail2 == 'daum.net'? 'selected': ''}>daum.net</option>
+                                                <option ${userInfo.userEmail2 == '@naver.com'? 'selected':'' }>naver.com</option>
+                                                <option ${userInfo.userEmail2 == '@gmail.com'? 'selected':'' }>gmail.com</option>
+                                                <option ${userInfo.userEmail2 == '@daum.net'? 'selected':'' }>daum.net</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -52,27 +54,27 @@
                                         <td class="m-title">*휴대폰</td>
                                         <td>
                                             <select class="form-control input-sm sel">
-                                                <option ${user.userPhone1 == '010'? 'selected': ''}>010</option>
-                                                <option ${user.userPhone1 == '011'? 'selected': ''}>011</option>
-                                                <option ${user.userPhone1 == '017'? 'selected': ''}>017</option>
-                                                <option ${user.userPhone1 == '018'? 'selected': ''}>018</option>
+                                                <option ${userInfo.userPhone1 == '010'? 'selected':'' }>010</option>
+                                                <option ${userInfo.userPhone1 == '011'? 'selected':'' }>011</option>
+                                                <option ${userInfo.userPhone1 == '017'? 'selected':'' }>017</option>
+                                                <option ${userInfo.userPhone1 == '018'? 'selected':'' }>018</option>
                                             </select>
-                                            <input class="form-control input-sm" value="${user.userPhone2 }">
+                                            <input class="form-control input-sm" ${userInfo.userPhone2}>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="m-title">*우편번호</td>
-                                        <td><input class="form-control input-sm" value="${user.addrZipNum }" readonly>
+                                        <td><input class="form-control input-sm" value="${userInfo.addrZipNum }" readonly>
                                         	<button type="button" class="btn btn-primary" id="addBtn">중복확인</button>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="m-title">*주소</td>
-                                        <td><input class="form-control input-sm add" value="${user.addrBasic }"></td>
+                                        <td><input class="form-control input-sm add" value="${userInfo.addrBasic }"></td>
                                     </tr>
                                     <tr>
                                         <td class="m-title">*상세주소</td>
-                                        <td><input class="form-control input-sm add" value="${user.addrDetail }"></td>
+                                        <td><input class="form-control input-sm add" value="${userInfo.addrDetail }"></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -96,16 +98,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                <c:forEach var="vo" items="${userInfo.list }">
                                     <tr>
-                                        <td>1</td>
-                                        <td><a href="##">첫글</a></td>
-                                        <td>~~~~~</td>
+                                        <td>${vo.bno }</td>
+                                        <td><a href="../freeBoard/freeDetail?bno=${vo.bno}&writer=${userInfo.userId}">${vo.title }</a></td>
+                                        <td><fmt:formatDate value="${vo.regdate }" pattern="yyyy-MM-dd hh:mm:ss"/></td>
                                     </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td><a href="##">두글</a></td>
-                                        <td>~~~~~</td>
-                                    </tr>
+                                 </c:forEach>   
                                 </tbody>
                             </table>
                             </form>

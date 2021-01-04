@@ -26,6 +26,13 @@ public class FreeBoardServiceImpl implements FreeBoardService{
 
 	@Override
 	public ArrayList<FreeBoardVO> getList(Criteria cri) {
+		
+		// AOP 연습용
+//		System.out.println("getList 메서드 실행");
+//		
+//		String s = null;
+//		s.equals("!@$");
+		
 		return freeBoardMapper.getList(cri);
 	}
 

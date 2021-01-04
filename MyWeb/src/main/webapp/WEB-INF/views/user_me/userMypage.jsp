@@ -23,11 +23,11 @@
                                 <tbody class="m-control">
                                     <tr>
                                         <td class="m-title">*ID</td>
-                                        <td><input class="form-control input-sm"></td>
+                                        <td><input class="form-control input-sm" value="${user.userId }"></td>
                                     </tr>
                                     <tr>
                                         <td class="m-title">*이름</td>
-                                        <td><input class="form-control input-sm"></td>
+                                        <td><input class="form-control input-sm" value="${user.userName }"></td>
                                     </tr>
                                     <tr>
                                         <td class="m-title">*비밀번호</td>
@@ -40,11 +40,11 @@
                                     <tr>
                                         <td class="m-title">*E-mail</td>
                                         <td>
-                                            <input class="form-control input-sm">@
+                                            <input class="form-control input-sm" value="${user.userEmail1 }">@
                                             <select class="form-control input-sm sel">
-                                                <option>naver.com</option>
-                                                <option>gmail.com</option>
-                                                <option>daum.net</option>
+                                                <option ${user.userEmail2 == 'naver.com'? 'selected': ''}>naver.com</option>
+                                                <option ${user.userEmail2 == 'gmail.com'? 'selected': ''}>gmail.com</option>
+                                                <option ${user.userEmail2 == 'daum.net'? 'selected': ''}>daum.net</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -52,27 +52,27 @@
                                         <td class="m-title">*휴대폰</td>
                                         <td>
                                             <select class="form-control input-sm sel">
-                                                <option>010</option>
-                                                <option>011</option>
-                                                <option>017</option>
-                                                <option>018</option>
+                                                <option ${user.userPhone1 == '010'? 'selected': ''}>010</option>
+                                                <option ${user.userPhone1 == '011'? 'selected': ''}>011</option>
+                                                <option ${user.userPhone1 == '017'? 'selected': ''}>017</option>
+                                                <option ${user.userPhone1 == '018'? 'selected': ''}>018</option>
                                             </select>
-                                            <input class="form-control input-sm">
+                                            <input class="form-control input-sm" value="${user.userPhone2 }">
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="m-title">*우편번호</td>
-                                        <td><input class="form-control input-sm" readonly>
+                                        <td><input class="form-control input-sm" value="${user.addrZipNum }" readonly>
                                         	<button type="button" class="btn btn-primary" id="addBtn">중복확인</button>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td class="m-title">*주소</td>
-                                        <td><input class="form-control input-sm add"></td>
+                                        <td><input class="form-control input-sm add" value="${user.addrBasic }"></td>
                                     </tr>
                                     <tr>
                                         <td class="m-title">*상세주소</td>
-                                        <td><input class="form-control input-sm add"></td>
+                                        <td><input class="form-control input-sm add" value="${user.addrDetail }"></td>
                                     </tr>
                                 </tbody>
                             </table>

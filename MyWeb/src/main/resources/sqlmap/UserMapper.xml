@@ -13,6 +13,47 @@
 	</insert>
 	
 	<select id="login" resultType="UserVO">
-		select * from USERS where userId = #{userId}
+		select * from USERS where userId = #{userId} and userPw = #{userPw}
 	</select>
+	
+	<!-- 마이페이지 회원정보 -->
+	<!-- 조인의 결과로 1:N 관계의 형태를 map으로 처리하는 방식에서 resultMap속성을 이용합니다. -->
+	<select id="getInfo" resultMap="userInfo">
+		select userid,
+		        username,
+		        userphone1,
+		        userphone2,
+		        useremail1,
+		        useremail2,
+		        addrbasic,
+		        addrdetail,
+		        addrzipnum,
+		        f.bno,
+		        f.title,
+		        f.regdate
+		from USERS u left outer join FREEBOARD f
+		on u.userid = f.writer
+		where u.userid = #{userId}
+		order by f.bno desc
+	</select>
+	
+	<!-- type속성(value) : 실제클래스의 경로, id 속성(key) : resultMap의 이름 -->
+	<!-- property 속성 : 변수명, column속성 : DB의 컬럼명 -->
+	<resultMap type="UserVO" id="userInfo">
+		<result property="userId" column="USERID"/>
+		<result property="userName" column="USERNAME"/>
+		<result property="userPhone1" column="USERPHONE1"/>
+		<result property="userPhone2" column="USERPHONE2"/>
+		<result property="userEmail1" column="USEREMAIL1"/>
+		<result property="userEmail2" column="USEREMAIL2"/>
+		<result property="addrBasic" column="ADDRBASIC"/>
+		<result property="addrDetail" column="ADDRDETAIL"/>
+		<result property="addrZipNum" column="ADDRZIPNUM"/>
+		<collection property="list" resultMap="userBoardList"/>
+	</resultMap>
+	<resultMap type="FreeBoardVO" id="userBoardList">
+		<result property="bno" column="BNO"/>
+		<result property="title" column="TITLE"/>
+		<result property="regdate" column="REGDATE"/>
+	</resultMap>
   </mapper>
